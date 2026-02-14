@@ -48,7 +48,7 @@ export default function App() {
             setStage("message");
           }}
         >
-          <img src="/flower.gif" className="flower-grow" />
+          <img src="/flower.gif" className="flower-grow" alt="Growing flower"/>
           <p>Tap the flower 🌸</p>
         </div>
       )}
@@ -65,7 +65,7 @@ export default function App() {
       {/* SLIDESHOW */}
       {stage === "slideshow" && (
         <div className="slideshow">
-          <img src={slides[slide].img} />
+          <img src={slides[slide].img} alt={`Slide ${slide + 1}`} />
           <p>{slides[slide].text}</p>
           <button
             onClick={() => {
@@ -85,7 +85,7 @@ export default function App() {
       {stage === "final" && (
         <div className="final">
           <h1>Happy Birthday & Happy Valentine’s Day Again💛</h1>
-          <img src="/funny.gif" width="250" />
+          <img src="/funny.gif" width="250" alt="Funny GIF"  />
           <p>
             Enjoy your day—kung anong pace ang comfy para sa inyo. 
             <br />
