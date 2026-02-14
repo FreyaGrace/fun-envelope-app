@@ -1,30 +1,25 @@
-import { useState } from "react";
+import { useState, useRef } from "react"; // useRef needed for audio
 import Confetti from "react-confetti";
 import "./App.css";
 
-const slides = [
-  { img: "/pic1.jpg", text: "1st day of SHS ✨" },
-  { img: "/pic2.jpg" },
-  { img: "/pic3.jpeg" },
-  { img: "/pic4.jpg" },
-  { img: "/pic5.jpg" },
-  { img: "/pic6.jpg", text: "When ulit 🥺" },
-  { img: "/pic7.jpeg" },
-  { img: "/pic8.jpeg" },
-  { img: "/pic9.jpeg" },
-   { img: "/pic10.jpeg" },
-  { img: "/pic11.jpeg" },
-  { img: "/pic12.jpeg" },
-   { img: "/pic13.jpeg" },
-];
 export default function App() {
   const [stage, setStage] = useState("envelope");
   const [slide, setSlide] = useState(0);
   const [confettiKey, setConfettiKey] = useState(0);
 
+  const audioRef = useRef(null);
+
+  const handleEnvelopeClick = () => {
+    setStage("flower");
+    if (audioRef.current) {
+      audioRef.current.play(); // starts music after first click
+    }
+  };
+
   return (
     <div className="container">
-      <audio src="/music.mp3" autoPlay loop />
+      {/* audio element */}
+      <audio ref={audioRef} src="/music.mp3" loop />
 
       {/* CONFETTI */}
       {(stage === "flower" || stage === "final") && (
@@ -33,7 +28,7 @@ export default function App() {
 
       {/* ENVELOPE */}
       {stage === "envelope" && (
-        <div className="envelope" onClick={() => setStage("flower")}>
+        <div className="envelope" onClick={handleEnvelopeClick}>
           💌
           <p>Click to open</p>
         </div>
@@ -44,7 +39,7 @@ export default function App() {
         <div
           className="flower-stage"
           onClick={() => {
-            setConfettiKey(confettiKey + 1); // 🔥 restart confetti
+            setConfettiKey(confettiKey + 1); // restart confetti
             setStage("message");
           }}
         >
@@ -84,7 +79,7 @@ export default function App() {
       {/* FINAL JOKE / GIF */}
       {stage === "final" && (
         <div className="final">
-          <h1>Happy Birthday & Happy Valentine’s Day Again💛</h1>
+          <h1>Happy Birthday & Happy Valentine’s Day Again 💛</h1>
           <img src="/funny.gif" width="250" alt="Funny GIF"  />
           <p>
             Enjoy your day—kung anong pace ang comfy para sa inyo. 
