@@ -2,9 +2,25 @@ import { useState, useRef } from "react"; // useRef needed for audio
 import Confetti from "react-confetti";
 import "./App.css";
 
+const slides = [
+  { img: "/pic1.jpg", text: "1st day of SHS ✨" },
+  { img: "/pic2.jpg" },
+  { img: "/pic3.jpeg" },
+  { img: "/pic4.jpg" },
+  { img: "/pic5.jpg" },
+  { img: "/pic6.jpg", text: "When ulit 🥺" },
+  { img: "/pic7.jpeg" },
+  { img: "/pic8.jpeg" },
+  { img: "/pic9.jpeg" },
+  { img: "/pic10.jpeg" },
+  { img: "/pic11.jpeg" },
+  { img: "/pic12.jpeg" },
+  { img: "/pic13.jpeg" },
+];
+
 export default function App() {
   const [stage, setStage] = useState("envelope");
-  const [slide, setSlide] = useState(0);
+  const [slide, setSlide] = useState(0); // current slide index
   const [confettiKey, setConfettiKey] = useState(0);
 
   const audioRef = useRef(null);
@@ -60,11 +76,11 @@ export default function App() {
       {/* SLIDESHOW */}
       {stage === "slideshow" && (
         <div className="slideshow">
-          <img src={slide[slide].img} alt={`Slide ${slide + 1}`} />
-          <p>{slide[slide].text}</p>
+          <img src={slides[slide].img} alt={`Slide ${slide + 1}`} />
+          <p>{slides[slide].text}</p>
           <button
             onClick={() => {
-              if (slide === slide.length - 1) {
+              if (slide === slides.length - 1) {
                 setStage("final");
               } else {
                 setSlide(slide + 1);
