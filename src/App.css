@@ -15,9 +15,20 @@ html, body {
   text-align: center;
   min-height: 100vh;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px; /* horizontal padding only */
   box-sizing: border-box;
   background: #fff6f9;
+}
+
+/* common stage wrapper for vertical centering */
+.stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  flex: 1; /* fill remaining space for vertical centering */
 }
 
 /* envelope animation */
@@ -31,7 +42,7 @@ html, body {
   50% { transform: translateY(-10px); }
 }
 
-.flower-grow {
+.flower-grow, .flower-stage video {
   width: 200px;
   max-width: 90%;
   animation: grow 2s ease forwards;
@@ -46,13 +57,23 @@ html, body {
   color: #ff5e8a;
 }
 
-.slideshow img, .final img {
-  max-width: 90%; /* responsive */
+/* slideshow + final images */
+.slideshow, .final {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.slideshow img, .final img, .slideshow video, .final video {
+  max-width: 90%;
   height: auto;
   border-radius: 12px;
   margin-bottom: 10px;
 }
 
+/* buttons */
 button {
   padding: 8px 16px;
   border: none;
@@ -60,12 +81,15 @@ button {
   color: white;
   border-radius: 20px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .hint {
   font-size: 1rem;
   color: #ff5e8a;
 }
+
+/* spinner */
 .spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #ff5e8a;

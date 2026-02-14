@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"; // useRef for audio, useEffect for image loading
+import { useState, useRef, useEffect } from "react";// useRef needed for audio
 import Confetti from "react-confetti";
 import "./App.css";
 
@@ -22,49 +22,45 @@ export default function App() {
   const [stage, setStage] = useState("envelope");
   const [slide, setSlide] = useState(0);
   const [confettiKey, setConfettiKey] = useState(0);
-  const [imgLoading, setImgLoading] = useState(false); // start with false for first slide
+  const [imgLoading, setImgLoading] = useState(false);
 
   const audioRef = useRef(null);
 
-  // Whenever slide changes, show spinner until image loads
-  useEffect(() => {
-    setImgLoading(true);
-  }, [slide]);
+useEffect(() => {
+  if (slide < slides.length - 1) {
+    const img = new Image();
+    img.src = slides[slide + 1].img;
+  }
+}, [slide]);
 
   const handleEnvelopeClick = () => {
     setStage("flower");
-    if (audioRef.current) {
-      audioRef.current.play(); // start music after first click
-    }
+    if (audioRef.current) audioRef.current.play();
   };
 
   return (
     <div className="container">
-      {/* audio */}
+      {/* audio element */}
       <audio ref={audioRef} src="/music.mp3" loop />
 
-      {/* Confetti */}
+      {/* CONFETTI */}
       {(stage === "flower" || stage === "final") && (
         <Confetti key={confettiKey} />
       )}
 
-      {/* Envelope */}
+      {/* ENVELOPE */}
       {stage === "envelope" && (
-        <div className="envelope" onClick={handleEnvelopeClick}>
-          💌
-          <p>Click to open</p>
+        <div className="stage">
+          <div className="envelope" onClick={handleEnvelopeClick}>
+            💌
+            <p>Click to open</p>
+          </div>
         </div>
       )}
 
-      {/* Flower */}
+      {/* FLOWER */}
       {stage === "flower" && (
-        <div
-          className="flower-stage"
-          onClick={() => {
-            setConfettiKey(confettiKey + 1);
-            setStage("message");
-          }}
-        >
+        <div className="stage" onClick={() => { setConfettiKey(confettiKey + 1); setStage("message"); }}>
           <video autoPlay loop muted width="250">
             <source src="/flower.mp4" type="video/mp4" />
           </video>
@@ -72,37 +68,32 @@ export default function App() {
         </div>
       )}
 
-      {/* Message */}
+      {/* MESSAGE */}
       {stage === "message" && (
-        <div className="message" onClick={() => setStage("slideshow")}>
+        <div className="stage" onClick={() => setStage("slideshow")}>
           <h1>Happy Birthday 🎂</h1>
           <h2>& Happy Valentine’s Day 💖</h2>
           <p>Tap to continue →</p>
         </div>
       )}
 
-      {/* Slideshow */}
+      {/* SLIDESHOW */}
       {stage === "slideshow" && (
-        <div className="slideshow">
-          {imgLoading && <div className="spinner" />} {/* spinner shows while loading */}
-
+        <div className="stage slideshow">
+          {imgLoading && <div className="spinner" />}
           <img
-            key={slide} // force re-render when slide changes
+            key={slide}
             src={slides[slide].img}
             alt={`Slide ${slide + 1}`}
-            onLoad={() => setImgLoading(false)} // hide spinner once loaded
+            loading="lazy"
+            onLoad={() => setImgLoading(false)}
             style={{ display: imgLoading ? "none" : "block" }}
           />
-
           {slides[slide].text && <p>{slides[slide].text}</p>}
-
           <button
             onClick={() => {
-              if (slide === slides.length - 1) {
-                setStage("final");
-              } else {
-                setSlide(slide + 1);
-              }
+              if (slide === slides.length - 1) setStage("final");
+              else setSlide(slide + 1);
             }}
           >
             Next ➡️
@@ -110,26 +101,19 @@ export default function App() {
         </div>
       )}
 
-      {/* Final GIF / Video */}
+      {/* FINAL JOKE / GIF */}
       {stage === "final" && (
-        <div className="final">
+        <div className="stage final">
           <h1>Happy Birthday & Happy Valentine’s Day Again 💛</h1>
           <video autoPlay loop muted width="250">
             <source src="/funny.mp4" type="video/mp4" />
           </video>
           <p>
-            Enjoy your day—kung anong pace ang comfy para sa inyo.
-            <br />
-            Always rooting for you ✨
-            <br />
+            Enjoy your day—kung anong pace ang comfy para sa inyo. <br />
+            Always rooting for you ✨<br/>
             Sorry, wala akong masyadong pics n’yo
           </p>
-          <button
-            onClick={() => {
-              setStage("envelope");
-              setSlide(0);
-            }}
-          >
+          <button onClick={() => { setStage("envelope"); setSlide(0); }}>
             Replay 🔁
           </button>
         </div>
