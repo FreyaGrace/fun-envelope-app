@@ -22,6 +22,9 @@ export default function App() {
   const [stage, setStage] = useState("envelope");
   const [slide, setSlide] = useState(0); // current slide index
   const [confettiKey, setConfettiKey] = useState(0);
+  const [imgLoading, setImgLoading] = useState(true);
+
+  
 
   const audioRef = useRef(null);
 
@@ -59,7 +62,9 @@ export default function App() {
             setStage("message");
           }}
         >
-          <img src="/flower.gif" className="flower-grow" alt="Growing flower"/>
+          <video autoPlay loop muted width="250">
+  <source src="/flower.mp4" type="video/mp4" />
+</video>
           <p>Tap the flower 🌸</p>
         </div>
       )}
@@ -76,10 +81,19 @@ export default function App() {
       {/* SLIDESHOW */}
       {stage === "slideshow" && (
         <div className="slideshow">
-          <img src={slides[slide].img} alt={`Slide ${slide + 1}`} />
+          {imgLoading && <div className="spinner" />}
+
+          <img
+  src={slides[slide].img}
+  alt={`Slide ${slide + 1}`}
+  loading="lazy"
+  onLoad={() => setImgLoading(false)}
+  style={{ display: imgLoading ? "none" : "block" }}
+/>
           <p>{slides[slide].text}</p>
           <button
             onClick={() => {
+              setImgLoading(true);
               if (slide === slides.length - 1) {
                 setStage("final");
               } else {
@@ -96,7 +110,9 @@ export default function App() {
       {stage === "final" && (
         <div className="final">
           <h1>Happy Birthday & Happy Valentine’s Day Again 💛</h1>
-          <img src="/funny.gif" width="250" alt="Funny GIF"  />
+          <video autoPlay loop muted width="250">
+  <source src="/funny.mp4" type="video/mp4" />
+</video>
           <p>
             Enjoy your day—kung anong pace ang comfy para sa inyo. 
             <br />
