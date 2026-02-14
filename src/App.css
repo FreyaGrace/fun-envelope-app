@@ -1,18 +1,26 @@
-body {
+/* reset */
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   font-family: sans-serif;
-  background: #fff6f9;
 }
 
 .container {
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  justify-content: center; /* vertical center */
+  align-items: center;     /* horizontal center */
   text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #fff6f9;
 }
 
+/* envelope animation */
 .envelope {
   font-size: 6rem;
   cursor: pointer;
@@ -25,6 +33,7 @@ body {
 
 .flower-grow {
   width: 200px;
+  max-width: 90%;
   animation: grow 2s ease forwards;
 }
 
@@ -33,12 +42,13 @@ body {
   to { transform: scale(1); }
 }
 
-.message h1 {
+.message h1, .message h2 {
   color: #ff5e8a;
 }
 
-.slideshow img {
-  width: 260px;
+.slideshow img, .final img {
+  max-width: 90%; /* responsive */
+  height: auto;
   border-radius: 12px;
   margin-bottom: 10px;
 }
@@ -50,4 +60,9 @@ button {
   color: white;
   border-radius: 20px;
   cursor: pointer;
+}
+
+.hint {
+  font-size: 1rem;
+  color: #ff5e8a;
 }
