@@ -12,6 +12,10 @@ const slides = [
   { img: "/pic7.jpeg" },
   { img: "/pic8.jpeg" },
   { img: "/pic9.jpeg" },
+   { img: "/pic10.jpeg" },
+  { img: "/pic11.jpeg" },
+  { img: "/pic12.jpeg" },
+   { img: "/pic13.jpeg" },
 ];
 export default function App() {
   const [stage, setStage] = useState("envelope");
