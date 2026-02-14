@@ -78,33 +78,37 @@ export default function App() {
         </div>
       )}
 
-      {/* SLIDESHOW */}
-      {stage === "slideshow" && (
-        <div className="slideshow">
-          {imgLoading && <div className="spinner" />}
+    {/* SLIDESHOW */}
+{stage === "slideshow" && (
+  <div className="slideshow">
+    {/* show spinner while image is loading */}
+    {imgLoading && <div className="spinner" />}
 
-          <img
-  src={slides[slide].img}
-  alt={`Slide ${slide + 1}`}
-  loading="lazy"
-  onLoad={() => setImgLoading(false)}
-  style={{ display: imgLoading ? "none" : "block" }}
-/>
-          <p>{slides[slide].text}</p>
-          <button
-            onClick={() => {
-              setImgLoading(true);
-              if (slide === slides.length - 1) {
-                setStage("final");
-              } else {
-                setSlide(slide + 1);
-              }
-            }}
-          >
-            Next ➡️
-          </button>
-        </div>
-      )}
+    <img
+      key={slide} // force re-render on slide change
+      src={slides[slide].img}
+      alt={`Slide ${slide + 1}`}
+      loading="lazy"
+      onLoad={() => setImgLoading(false)}
+      style={{ display: imgLoading ? "none" : "block" }}
+    />
+
+    {slides[slide].text && <p>{slides[slide].text}</p>}
+
+    <button
+      onClick={() => {
+        setImgLoading(true); // show spinner on next
+        if (slide === slides.length - 1) {
+          setStage("final");
+        } else {
+          setSlide(slide + 1);
+        }
+      }}
+    >
+      Next ➡️
+    </button>
+  </div>
+)}
 
       {/* FINAL JOKE / GIF */}
       {stage === "final" && (
