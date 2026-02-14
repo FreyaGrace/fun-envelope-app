@@ -60,11 +60,11 @@ export default function App() {
       {/* SLIDESHOW */}
       {stage === "slideshow" && (
         <div className="slideshow">
-          <img src={slides[slide].img} alt={`Slide ${slide + 1}`} />
-          <p>{slides[slide].text}</p>
+          <img src={slide[slide].img} alt={`Slide ${slide + 1}`} />
+          <p>{slide[slide].text}</p>
           <button
             onClick={() => {
-              if (slide === slides.length - 1) {
+              if (slide === slide.length - 1) {
                 setStage("final");
               } else {
                 setSlide(slide + 1);
