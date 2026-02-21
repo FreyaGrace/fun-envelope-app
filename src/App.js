@@ -110,8 +110,7 @@ useEffect(() => {
           </video>
           <p>
             Enjoy your day—kung anong pace ang comfy para sa inyo. <br />
-            Always rooting for you ✨<br/>
-            Sorry, wala akong masyadong pics n’yo
+            Always rooting for you ✨
           </p>
           <button onClick={() => { setStage("envelope"); setSlide(0); }}>
             Replay 🔁
